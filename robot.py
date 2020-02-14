@@ -4,15 +4,18 @@ from rev.color import ColorSensorV3
 
 class MyRobot(wpilib.TimedRobot):
 
-    RevColorChannel = 0
-
     def robotInit(self):
 
-        self.RevColor = ColorSensorV3(self.RevColorChannel)
+        RevColor = ColorSensorV3(wpilib.I2C.Port.kOnboard)
 
-    def teleopPeriodic(self):
+    def robotPeriodic(self):
 
-        print(self.RevColor.getColor())
+        RGBColor = self.RevColor.getcolor()
+
+        wpilib.SmartDashboard.putNumber("Red", RGBColor.red)
+        wpilib.SmartDashboard.putNumber("Green", RGBColor.green)
+        wpilib.SmartDashboard.putNumber("Blue", RGBColor.blue)
+
 
         wpilib.Timer.delay(0.5)
 
